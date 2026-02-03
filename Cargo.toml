@@ -1,0 +1,20 @@
+[package]
+name = "sui-readable"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+axum = "0.7"
+tokio = {version = "1.2", features = ["full"]}
+tower-http = {version = "0.5", features = [ "cors", "fs"]}
+
+sui-sdk = { git = "https://github.com/MystenLabs/sui", package = "sui-sdk"}
+sui-types = { git = "https://github.com/MystenLabs/sui", package = "sui-types"}
+sui-json-rpc-types = { git = "https://github.com/MystenLabs/sui", package = "sui-json-rpc-types"}
+
+serde = {version = "1.0", features = ["derive"]}
+serde_json = "1.0"
+
+anyhow = "1.0"
+thiserror = "1.0"
