@@ -2,601 +2,320 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sui Transaction Explainer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --bg: #f6f6f5;
-        --surface: #ffffff;
-        --surface-muted: #f9f9f9;
-        --text: #0b0b0b;
-        --muted: #6c6c6c;
+        --bg: #f4f4f4;
+        --panel: #fff;
+        --muted: #6a6a6a;
         --border: #e1e1e1;
-        --shadow: 0 25px 60px rgba(0, 0, 0, 0.06);
+        --text: #0b0b0b;
       }
-
       * {
-        margin: 0;
-        padding: 0;
         box-sizing: border-box;
       }
-
       body {
-        font-family:
-          "Google Sans",
-          "Funnel Display",
-          "SF Pro Display",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
+        margin: 0;
+        font-family: "Google Sans", "Funnel Display", -apple-system,
+          BlinkMacSystemFont, "Segoe UI", sans-serif;
         background: var(--bg);
         color: var(--text);
-        min-height: 100vh;
       }
-
-      h1,
-      h2,
-      h3,
-      label {
-        font-family:
-          "Funnel Display",
-          "Google Sans",
-          "SF Pro Display",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
-        letter-spacing: -0.01em;
-      }
-
-      .shell {
-        max-width: 960px;
+      main {
+        max-width: 760px;
         margin: 0 auto;
-        padding: 48px 24px 72px;
-      }
-
-      .hero {
-        text-align: center;
-        margin-bottom: 48px;
+        padding: 48px 20px 72px;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 28px;
       }
-
-      .hero .eyebrow {
-        text-transform: uppercase;
-        letter-spacing: 0.28em;
-        font-size: 12px;
-        color: var(--muted);
-      }
-
-      .hero h1 {
-        font-size: clamp(2.5rem, 5vw, 3.25rem);
+      h1 {
+        font-family: "Funnel Display", "Google Sans", sans-serif;
+        font-size: clamp(2.2rem, 5vw, 3.1rem);
         font-weight: 500;
+        letter-spacing: -0.02em;
+        margin: 8px 0;
       }
-
-      .hero .lede {
-        max-width: 580px;
-        margin: 0 auto;
+      p {
         color: var(--muted);
         line-height: 1.6;
+        margin: 0;
       }
-
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.32em;
+        font-size: 12px;
+      }
       .card {
-        background: var(--surface);
-        border-radius: 28px;
-        padding: 32px;
+        background: var(--panel);
+        border-radius: 26px;
         border: 1px solid var(--border);
-        box-shadow: var(--shadow);
+        padding: 28px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.05);
       }
-
-      .entry-card {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        margin-bottom: 32px;
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 500;
       }
-
-      .input-group {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .input-group label {
-        font-size: 0.95rem;
-        color: var(--text);
-      }
-
-      .input-group input {
+      input {
         width: 100%;
-        padding: 18px 20px;
         border: 1px solid var(--border);
         border-radius: 16px;
+        padding: 16px;
         font-size: 1rem;
-        font-family: "Google Sans", "SF Mono", "Roboto Mono", monospace;
-        letter-spacing: 0.02em;
-        background: var(--surface-muted);
-        transition:
-          border 0.2s ease,
-          background 0.2s ease;
+        background: #f7f7f7;
       }
-
-      .input-group input:focus {
+      input:focus {
         outline: none;
-        border-color: #0f0f0f;
-        background: var(--surface);
+        background: #fff;
+        border-color: #0b0b0b;
       }
-
-      .btn {
+      button {
         width: 100%;
-        padding: 18px 20px;
         border: none;
-        border-radius: 18px;
-        font-size: 1rem;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
+        border-radius: 16px;
         background: #0b0b0b;
-        color: #ffffff;
+        color: #fff;
+        padding: 16px;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        font-weight: 600;
+        text-transform: uppercase;
         cursor: pointer;
-        transition:
-          transform 0.2s ease,
-          opacity 0.2s ease;
       }
-
-      .btn:hover {
-        transform: translateY(-1px);
-      }
-
-      .btn:disabled {
+      button:disabled {
         opacity: 0.35;
         cursor: not-allowed;
-        transform: none;
       }
-
-      .example-links {
+      .examples {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 10px;
+        margin-top: 18px;
+        font-size: 0.9rem;
       }
-
-      .example-links span {
-        color: var(--muted);
-        font-size: 0.95rem;
-        margin-right: 12px;
-        line-height: 36px;
-      }
-
-      .example-links a {
-        text-decoration: none;
-        color: var(--text);
+      .examples a {
         border: 1px solid var(--border);
         border-radius: 999px;
         padding: 6px 14px;
-        font-size: 0.9rem;
-        transition:
-          background 0.2s ease,
-          color 0.2s ease;
+        text-decoration: none;
+        color: var(--text);
       }
-
-      .example-links a:hover {
+      .examples a:hover {
         background: #0b0b0b;
-        color: #ffffff;
+        color: #fff;
       }
-
-      .loading {
-        margin-bottom: 32px;
-        text-align: center;
-      }
-
-      .spinner {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        border: 2px solid #d8d8d8;
-        border-top-color: #0b0b0b;
-        margin: 0 auto 16px;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      .state-card {
+      .hidden {
         display: none;
       }
-
-      .result {
-        margin-top: 24px;
+      .summary {
+        background: #f7f7f7;
+        border-radius: 18px;
+        padding: 20px;
+        margin-bottom: 20px;
       }
-
-      .result.show {
-        display: block;
-      }
-
-      .summary-panel {
-        background: var(--surface-muted);
-        border-radius: 24px;
-        padding: 28px;
-        margin-bottom: 28px;
-      }
-
-      .summary-panel h2 {
-        font-size: 1.4rem;
-        margin-bottom: 12px;
-      }
-
-      .summary-panel p {
-        color: var(--muted);
-        line-height: 1.6;
-      }
-
-      .info-grid {
+      .meta {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 16px;
-        margin-bottom: 32px;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
       }
-
-      .info-item {
-        padding: 16px;
-        border-radius: 18px;
+      .meta div {
         border: 1px solid var(--border);
-        background: var(--surface);
+        border-radius: 16px;
+        padding: 12px 16px;
+        font-size: 0.95rem;
       }
-
-      .info-item label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        color: var(--muted);
-        letter-spacing: 0.12em;
-      }
-
-      .info-value {
-        margin-top: 10px;
-        font-weight: 600;
-        font-size: 1rem;
-        word-break: break-all;
-      }
-
-      .section {
-        margin-bottom: 32px;
-      }
-
       .section-title {
-        font-size: 1.15rem;
-        margin-bottom: 14px;
-        padding-bottom: 12px;
+        margin: 24px 0 12px;
         border-bottom: 1px solid var(--border);
+        padding-bottom: 6px;
       }
-
-      .action-item,
-      .balance-item {
-        background: var(--surface-muted);
-        padding: 18px;
-        border-radius: 18px;
+      .item {
         border: 1px solid var(--border);
-        margin-bottom: 12px;
+        border-radius: 16px;
+        padding: 14px;
+        margin-bottom: 10px;
+        background: #fafafa;
         line-height: 1.5;
       }
-
-      .balance-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .balance-amount {
-        font-weight: 600;
-      }
-
-      .balance-amount.positive {
-        color: #0b0b0b;
-      }
-
-      .balance-amount.negative {
-        color: #7b7b7b;
-      }
-
       .object-details {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         color: var(--muted);
         margin-top: 6px;
         font-family: "Google Sans", "SF Mono", "Roboto Mono", monospace;
       }
-
-      .error {
-        border: 1px solid #dcdcdc;
-        border-radius: 20px;
-        padding: 24px;
-        background: #f7f7f7;
-        color: var(--text);
-      }
-
-      .error p {
-        margin-top: 8px;
-        color: var(--muted);
-      }
-
-      @media (max-width: 600px) {
-        .card {
-          border-radius: 24px;
-          padding: 24px;
-        }
-
-        .input-group input,
-        .btn {
-          border-radius: 14px;
-        }
-
-        .example-links {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .example-links span {
-          line-height: 1.6;
-        }
+      .balance-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
       }
     </style>
   </head>
   <body>
-    <main class="shell">
-      <header class="hero">
+    <main>
+      <section style="text-align: center">
         <p class="eyebrow">Sui Readable</p>
         <h1>Transaction clarity without the noise</h1>
-        <p class="lede">
-          Paste any Sui transaction digest and review a precise, structured
-          explanation.
+        <p>
+          Paste a digest and review a precise explanation in a monochrome,
+          Apple-style canvas.
         </p>
-      </header>
+      </section>
 
-      <section class="card entry-card">
-        <div class="input-group">
-          <label for="digest">Transaction Digest</label>
-          <input
-            type="text"
-            id="digest"
-            placeholder="2vN4jBW8R4k6K3v9xsNZ8L4k2j3B5h6N..."
-          />
-        </div>
-        <button class="btn" onclick="explainTransaction()" id="explainBtn">
+      <section class="card">
+        <label for="digest">Transaction Digest</label>
+        <input
+          id="digest"
+          type="text"
+          placeholder="2vN4jBW8R4k6K3v9xsNZ8L4k2j3B5h6N..."
+        />
+        <button id="explainBtn" onclick="explainTransaction()">
           Explain Transaction
         </button>
-        <div class="example-links">
-          <span>Need inspiration?</span>
-          <a
-            href="#"
-            onclick="
-              loadExample(
-                '2vN4jBW8R4k6K3v9xsNZ8L4k2j3B5h6N7m8K9L0P1Q2R3S4T5U6V7W8X9Y0Z1A2',
-              );
-              return false;
-            "
+        <div class="examples">
+          <span>Need an example?</span>
+          <a href="#" onclick="return loadExample('2vN4jBW8R4k6K3v9xsNZ8L4k2j3B5h6N7m8K9L0P1Q2R3S4T5U6V7W8X9Y0Z1A2')"
             >Example 1</a
           >
-          <a
-            href="#"
-            onclick="
-              loadExample(
-                '3wO5kCX9S5l7L4w0ytOA9M5l3k4C6i7O8n9L0M1P2Q3R4S5T6U7V8W9X0Y1Z2B3',
-              );
-              return false;
-            "
+          <a href="#" onclick="return loadExample('3wO5kCX9S5l7L4w0ytOA9M5l3k4C6i7O8n9L0M1P2Q3R4S5T6U7V8W9X0Y1Z2B3')"
             >Example 2</a
           >
         </div>
       </section>
 
-      <section id="loading" class="card state-card loading">
-        <div class="spinner"></div>
-        <p class="lede">Fetching and decoding transaction…</p>
+      <section id="loading" class="card hidden" aria-live="polite">
+        <p class="eyebrow">Fetching & decoding</p>
       </section>
 
-      <section id="result" class="card state-card result"></section>
+      <section id="result" class="card hidden"></section>
     </main>
 
     <script>
+      const digestEl = document.getElementById("digest");
+      const resultEl = document.getElementById("result");
+      const loadingEl = document.getElementById("loading");
+      const btn = document.getElementById("explainBtn");
+
       function loadExample(digest) {
-        document.getElementById("digest").value = digest;
+        digestEl.value = digest;
         explainTransaction();
+        return false;
       }
 
       async function explainTransaction() {
-        const digest = document.getElementById("digest").value.trim();
-        const resultDiv = document.getElementById("result");
-        const loadingDiv = document.getElementById("loading");
-        const btn = document.getElementById("explainBtn");
+        const digest = digestEl.value.trim();
+        if (!digest) return alert("Please enter a transaction digest");
 
-        if (!digest) {
-          alert("Please enter a transaction digest");
-          return;
-        }
-
-        resultDiv.classList.remove("show");
-        loadingDiv.style.display = "block";
+        resultEl.classList.add("hidden");
+        loadingEl.classList.remove("hidden");
         btn.disabled = true;
 
         try {
-          const response = await fetch("/api/explain", {
+          const res = await fetch("/api/explain", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ digest: digest }),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ digest }),
           });
-
-          const data = await response.json();
-
-          loadingDiv.style.display = "none";
+          const data = await res.json();
+          data.success ? displayExplanation(data.explanation) : displayError(data.error);
+        } catch (err) {
+          displayError("Failed to connect: " + err.message);
+        } finally {
+          loadingEl.classList.add("hidden");
           btn.disabled = false;
-
-          if (data.success && data.explanation) {
-            displayExplanation(data.explanation);
-          } else {
-            displayError(data.error || "Unknown error occurred");
-          }
-        } catch (error) {
-          loadingDiv.style.display = "none";
-          btn.disabled = false;
-          displayError("Failed to connect to server: " + error.message);
         }
       }
 
-      function displayExplanation(exp) {
-        const resultDiv = document.getElementById("result");
-
+      function displayExplanation(exp = {}) {
         let html = `
-          <div class="summary-panel">
-            <h2>Transaction Summary</h2>
-            <p>${exp.summary}</p>
-          </div>
-          <div class="info-grid">
-            <div class="info-item">
-              <label>Status</label>
-              <div class="info-value">${exp.status}</div>
-            </div>
-            <div class="info-item">
-              <label>Gas Used</label>
-              <div class="info-value">${exp.gas_used_sui}</div>
-            </div>
-            <div class="info-item">
-              <label>Sender</label>
-              <div class="info-value">${shortenAddress(exp.sender)}</div>
-            </div>
-            <div class="info-item">
-              <label>Digest</label>
-              <div class="info-value">${shortenAddress(exp.digest)}</div>
-            </div>
+          <div class="summary">${exp.summary || "No summary available."}</div>
+          <div class="meta">
+            <div><strong>Status</strong><br />${exp.status || "-"}</div>
+            <div><strong>Gas Used</strong><br />${exp.gas_used_sui || "-"}</div>
+            <div><strong>Sender</strong><br />${shorten(exp.sender)}</div>
+            <div><strong>Digest</strong><br />${shorten(exp.digest)}</div>
           </div>
         `;
 
-        if (exp.actions && exp.actions.length > 0) {
-          html += `
-            <div class="section">
-              <h3 class="section-title">Actions Performed</h3>
-              ${exp.actions
-                .map(
-                  (action) => `
-                    <div class="action-item">${action}</div>
-                  `,
-                )
-                .join("")}
+        html += buildSection("Actions", exp.actions);
+        html += buildSection(
+          "Balance Changes",
+          exp.balance_changes,
+          (balance) => `
+            <div class="item balance-row">
+              <div>
+                <strong>${shorten(balance.owner)}</strong>
+                <div class="object-details">${balance.coin_type}</div>
+              </div>
+              <div>${balance.amount_readable}</div>
             </div>
-          `;
-        }
-
-        if (exp.balance_changes && exp.balance_changes.length > 0) {
-          html += `
-            <div class="section">
-              <h3 class="section-title">Balance Changes</h3>
-              ${exp.balance_changes
-                .map(
-                  (balance) => `
-                    <div class="balance-item">
-                      <div>
-                        <strong>${shortenAddress(balance.owner)}</strong>
-                        <div class="object-details">${balance.coin_type}</div>
-                      </div>
-                      <div class="balance-amount ${balance.amount > 0 ? "positive" : "negative"}">
-                        ${balance.amount_readable}
-                      </div>
-                    </div>
-                  `,
-                )
-                .join("")}
+          `,
+        );
+        html += buildSection(
+          "Object Changes",
+          exp.object_changes,
+          (obj) => `
+            <div class="item">
+              <div>${obj.details}</div>
+              <div class="object-details">
+                ${obj.change_type} • ${obj.object_type} • ${shorten(obj.object_id)}
+              </div>
             </div>
-          `;
-        }
-
-        if (exp.object_changes && exp.object_changes.length > 0) {
-          html += `
-            <div class="section">
-              <h3 class="section-title">Object Changes</h3>
-              ${exp.object_changes
-                .map(
-                  (obj) => `
-                    <div class="action-item">
-                      <div>${obj.details}</div>
-                      <div class="object-details">
-                        ${obj.change_type} • ${obj.object_type} • ${shortenAddress(obj.object_id)}
-                      </div>
-                    </div>
-                  `,
-                )
-                .join("")}
-            </div>
-          `;
-        }
-
-        if (exp.events && exp.events.length > 0) {
-          html += `
-            <div class="section">
-              <h3 class="section-title">Events Emitted</h3>
-              ${exp.events
-                .map(
-                  (event) => `
-                    <div class="action-item">${event}</div>
-                  `,
-                )
-                .join("")}
-            </div>
-          `;
-        }
+          `,
+        );
+        html += buildSection("Events", exp.events);
 
         html += `
-          <button class="btn" onclick="resetForm()" style="margin-top: 8px;">
+          <button onclick="resetForm()" style="margin-top: 10px">
             Explain Another Transaction
           </button>
         `;
 
-        resultDiv.innerHTML = html;
-        resultDiv.classList.add("show");
+        resultEl.innerHTML = html;
+        resultEl.classList.remove("hidden");
       }
 
-      function displayError(message) {
-        const resultDiv = document.getElementById("result");
-        resultDiv.innerHTML = `
-          <div class="error">
-            <h3>Something went wrong</h3>
+      function buildSection(title, list, template = (item) => `<div class="item">${item}</div>`) {
+        if (!Array.isArray(list) || !list.length) return "";
+        return `
+          <h3 class="section-title">${title}</h3>
+          ${list.map(template).join("")}
+        `;
+      }
+
+      function displayError(message = "Unknown error") {
+        resultEl.innerHTML = `
+          <div class="item" style="border-radius: 20px">
+            <strong>Something went wrong</strong>
             <p>${message}</p>
           </div>
-          <button class="btn" onclick="resetForm()" style="margin-top: 16px;">
-            Try Again
-          </button>
+          <button onclick="resetForm()" style="margin-top: 10px">Try Again</button>
         `;
-        resultDiv.classList.add("show");
+        resultEl.classList.remove("hidden");
       }
 
       function resetForm() {
-        document.getElementById("digest").value = "";
-        document.getElementById("result").classList.remove("show");
-        document.getElementById("digest").focus();
+        digestEl.value = "";
+        resultEl.classList.add("hidden");
+        digestEl.focus();
       }
 
-      function shortenAddress(addr) {
-        if (!addr || addr.length <= 12) return addr;
-        return addr.substring(0, 8) + "..." + addr.substring(addr.length - 6);
+      function shorten(value) {
+        if (!value || value.length <= 12) return value || "-";
+        return `${value.slice(0, 8)}...${value.slice(-6)}`;
       }
 
-      document
-        .getElementById("digest")
-        .addEventListener("keypress", function (e) {
-          if (e.key === "Enter") {
-            explainTransaction();
-          }
-        });
+      digestEl.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") explainTransaction();
+      });
     </script>
   </body>
 </html>
